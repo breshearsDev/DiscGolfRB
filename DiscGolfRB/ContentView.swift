@@ -51,6 +51,7 @@ struct ContentView: View {
                                 .cornerRadius(50)
                         }
                         
+                        
                 }
                 
             }
@@ -78,6 +79,7 @@ struct ContentView: View {
                 Text("Full Map")
                     .font(.title)
             }
+            
 
             Text("Total Score: \(score)")
         }
