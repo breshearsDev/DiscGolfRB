@@ -10,12 +10,18 @@ import MapKit
 
 struct Hole1View: View {
     
-//    @Binding var score: Int
+    
+    
     @Environment(\.dismiss) var dismiss
-    @Environment(\.score) var score
+    
+    @Binding var score: Int
+    
+    @State var hole1Score = 0
+    
+    @State var scoreColor: Color = .blue
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             Text("Hole 1")
                 .font(.largeTitle)
             Map() {
@@ -33,21 +39,50 @@ struct Hole1View: View {
             }
             .padding()
             
-            Text("\(score)")
-            
+            HStack {
+                Spacer()
+                Stepper("score: \(hole1Score)", value: $hole1Score, in: 0...25)
+                    .font(.largeTitle)
+                    .frame(width: 300)
+                    .foregroundStyle(hole1Score < 3 ? .green : (hole1Score == 3 ? .blue : .red))
+                    .padding()
+                    .background(.white)
+                    .padding()
+                
+                Spacer()
+            }
             Button {
+                score += hole1Score
                 dismiss()
+//
             } label: {
                 Text("Submit Score")
+                
+                    .padding()
+                    .background(.white)
+                    .clipShape(
+                        RoundedRectangle(cornerRadius: 20))
             }
 
         }
+        .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity   )
         .background(.ultraThinMaterial)
 
     }
+    
+    func colorCode() {
+        if hole1Score == 3 {
+            scoreColor = .blue
+        } else if hole1Score < 3 {
+            scoreColor = .green
+        } else {
+            scoreColor = .red
+        }
+    }
 }
 
 #Preview {
-    Hole1View()
+    @Previewable @State var score = 0
+    Hole1View(score: $score)
 }

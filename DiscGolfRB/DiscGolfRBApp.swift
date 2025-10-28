@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct DiscGolfRBApp: App {
+    //@StateObject var score = Score()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                //.environmentObject(score)
         }
     }
 }
